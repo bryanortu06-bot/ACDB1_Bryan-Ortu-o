@@ -15,12 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$correo]);
         $user = $stmt->fetch();
 
-        // Verificar contraseña con el hash seguro
+       // Verificar contraseña con el hash seguro
         if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true); // Seguridad contra fijación de sesión
             
             $_SESSION['usuario_cedula'] = $user['cedula'];
             $_SESSION['usuario_nombre'] = $user['nombre'];
+            $_SESSION['usuario_correo'] = $user['correo']; // <-- ¡AÑADE ESTA LÍNEA AQUÍ!
             
             header("Location: perfil.php"); // ¡Aquí te mandará al inicio del sistema!
             exit;
